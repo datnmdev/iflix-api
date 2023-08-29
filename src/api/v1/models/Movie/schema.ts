@@ -1,10 +1,8 @@
-import {Schema} from 'mongoose'
+import { Schema, Model } from 'mongoose'
 
-import rateSchema from '../Rate/schema'
-import movieModelType from './modelType'
 import IMovie from '../../interfaces/entities/IMovie'
 
-const movieSchema = new Schema<IMovie, movieModelType>({
+const movieSchema = new Schema<IMovie, Model<IMovie>>({
   title: {
     type: String,
     required: true
@@ -48,8 +46,7 @@ const movieSchema = new Schema<IMovie, movieModelType>({
   country: {
     type: Schema.Types.ObjectId,
     ref: 'country'
-  },
-  rate: [rateSchema]
+  }
 })
 
 export default movieSchema

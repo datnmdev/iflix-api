@@ -1,11 +1,18 @@
 import { Request, Response } from 'express'
 
-import User from '../../models/User'
+import userSevice from '../../services/userService'
 
 const getAll = async (req: Request, res: Response) => {
-  const users = await User.find({ role: 'user' })
-
-  return res.status(200).json([ ...users ])
+  try {
+    const users = await userSevice.findByRole('user')
+  
+    return res.status(200).json(users)
+  } catch (error) {
+    return res.status(500).json({
+      status: 'Internal Server Error',
+      message: 'An internal error occurred while processing the request'
+    })
+  }
 }
 
 export default getAll

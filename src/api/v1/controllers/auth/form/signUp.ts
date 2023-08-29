@@ -79,7 +79,7 @@ const signUp = async (req: Request, res: Response) => {
   } catch (error) {
     await session.abortTransaction()
     await session.endSession()
-    return res.status(500).json({ error })
+    return res.status(500).json(error)
   }
 }
 

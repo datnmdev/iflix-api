@@ -1,13 +1,22 @@
 import { Router } from 'express'
+import { createValidator } from 'express-joi-validation'
 
 import securityMiddlware from '../middlewares/security'
-import authorization from '../middlewares/security/authorization/user'
 import userController from '../controllers/user'
+import { updateByIdSchema } from '../validations/user'
+import errorHandlerMiddleware from '../middlewares/error'
 
 const userRouter = Router()
+const validator = createValidator({ passError: true })
 
 userRouter.use(securityMiddlware.authentication.authenticateAccessToken)
 
-userRouter.get('/', authorization.getAll, userController.getAll)
+userRouter.get('/', securityMiddlware.authorization.user.getAll, userController.getAll)
+
+userRouter.get('/:id', securityMiddlware.authorization.user.getById, userController.getById)
+
+userRouter.put('/:id', validator.body(updateByIdSchema), securityMiddlware.authorization.user.updateById, userController.updateById, errorHandlerMiddleware.validationErrorHandler)
+
+userRouter.delete('/:id', securityMiddlware.authorization.user.deleteById, userController.deleteById)
 
 export default userRouter

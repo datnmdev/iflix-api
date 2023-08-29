@@ -1,7 +1,13 @@
 import getAll from './getAll'
+import getById from './getById'
+import updateById from './updateById'
+import deleteById from './deleteById'
 
 const userController = {
-  getAll
+  getAll,
+  getById,
+  updateById,
+  deleteById
 }
 
 export default userController

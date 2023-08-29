@@ -8,6 +8,10 @@ const rateSchema = new Schema<IRate, Model<IRate>>({
     min: 1,
     max: 5
   },
+  movie: {
+    type: Schema.Types.ObjectId,
+    ref: 'movie'
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'user'

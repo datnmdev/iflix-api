@@ -1,7 +1,9 @@
 import authentication from './authentication'
+import authorization from './authorization'
 
 const securityMiddlware = {
-  authentication
+  authentication,
+  authorization
 }
 
 export default securityMiddlware

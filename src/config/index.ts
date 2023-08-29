@@ -5,9 +5,9 @@ import cors from 'cors'
 import redisConfig from './redis'
 import passportConfig from './passport'
 import databaseConfig from './database'
-import security from '../api/v1/middlewares/security'
 import authRouter from '../api/v1/routes/auth'
 import userRouter from '../api/v1/routes/user'
+import errorHandlerMiddleware from '../api/v1/middlewares/error'
 
 export default function appConfig(app: Express) {
   // Common configs
@@ -26,4 +26,5 @@ export default function appConfig(app: Express) {
   app.use('/users', userRouter)
 
   // Middlewares configs
+  app.use(errorHandlerMiddleware.commonErrorHandler)
 }

@@ -13,8 +13,7 @@ interface IMovie {
     genres: Types.Array<Types.ObjectId>,
     directors: Types.Array<Types.ObjectId>,
     casts: Types.Array<Types.ObjectId>,
-    country: Types.ObjectId,
-    rate: IRate[]
+    country: Types.ObjectId
 }
 
 export default IMovie
