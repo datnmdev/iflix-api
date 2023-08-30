@@ -1,7 +1,7 @@
 import { AbilityBuilder, createMongoAbility } from '@casl/ability'
 
 import IRequestUser from '../../../../interfaces/orthers/IRequestUser'
-import userSevice from '../../../../services/userService'
+import userSevice from '../../../../services/user'
 
 export default async function defineAbilityForUser(user: IRequestUser) {
   const adminUserIdList = (await userSevice.findByRole('admin', { _id: 1 })).map(user => user._id)

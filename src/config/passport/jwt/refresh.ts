@@ -4,7 +4,7 @@ import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 import dotenv from 'dotenv'
 import bodyParser from 'body-parser'
 
-import userSevice from '../../../api/v1/services/userService'
+import userSevice from '../../../api/v1/services/user'
 
 dotenv.config()
 

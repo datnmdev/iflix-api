@@ -1,7 +1,9 @@
 import user from './user'
+import genre from './genre'
 
 const authorization = {
-  user
+  user,
+  genre
 }
 
 export default authorization

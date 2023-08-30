@@ -6,8 +6,8 @@ import bcrypt from 'bcrypt'
 
 import defineAbilityForUser from '../../middlewares/security/authorization/user/rules'
 import IRequestUser from '../../interfaces/orthers/IRequestUser'
-import userSevice from '../../services/userService'
-import passwordCredentialService from '../../services/passwordCredentialService'
+import userSevice from '../../services/user'
+import passwordCredentialService from '../../services/password'
 
 const updateById = async (req: Request, res: Response) => {
   try {

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import userSevice from '../../services/userService'
+import userSevice from '../../services/user'
 
 const getAll = async (req: Request, res: Response) => {
   try {

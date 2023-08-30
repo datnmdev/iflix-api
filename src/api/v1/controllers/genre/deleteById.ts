@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import mongoose, { Types } from 'mongoose'
 
-import userSevice from '../../services/user'
+import genreService from '../../services/genre'
 
 const deleteById = async (req: Request, res: Response) => {
   const session = await mongoose.startSession()
@@ -9,19 +9,24 @@ const deleteById = async (req: Request, res: Response) => {
   try {
     session.startTransaction()
 
-    await userSevice.findByIdAndDelete(new Types.ObjectId(req.params.id), session)
+    await genreService.findByIdAndDelete(new Types.ObjectId(req.params.id), session)
 
     await session.commitTransaction()
     await session.endSession()
-    
+
     return res.status(200).json({
       status: 'OK',
-      message: 'The user information has been deleted'
+      message: 'The genre has been deleted successfully'
     })
   } catch (error) {
     await session.abortTransaction()
     await session.endSession()
-    return res.status(500).json(error)
+
+    return res.status(500).json({
+      status: 'Internal Server Error',
+      message: 'The genre hasn\'t been deleted successfully',
+      error
+    })
   }
 }
 

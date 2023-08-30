@@ -1,7 +1,7 @@
-import {Schema, Model} from 'mongoose'
+import { Schema, Model } from 'mongoose'
 
 import IUser from '../../interfaces/entities/IUser'
-import passwordCredentialService from '../../services/passwordCredentialService'
+import passwordCredentialService from '../../services/password'
 import commentService from '../../services/comment'
 import historyService from '../../services/history'
 import followService from '../../services/follow'
@@ -38,7 +38,7 @@ const userSchema = new Schema<IUser, Model<IUser>>({
 })
 
 // Middlewares
-userSchema.pre('findOneAndDelete', { document: false, query: true }, async function(next) {
+userSchema.pre('findOneAndDelete', { document: false, query: true }, async function (next) {
   const userId = this.getFilter()._id
   const session = this.getOptions().session
 

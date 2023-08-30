@@ -4,8 +4,8 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 
-import userSevice from '../../../services/userService'
-import passwordCredentialService from '../../../services/passwordCredentialService'
+import userSevice from '../../../services/user'
+import passwordCredentialService from '../../../services/password'
 import { redisClient } from '../../../../../config/redis'
 import IPasswordCredential from '../../../interfaces/entities/IPasswordCredential'
 

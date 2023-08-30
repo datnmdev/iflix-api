@@ -5,8 +5,8 @@ import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 
 import { redisClient } from '../../../../../config/redis'
-import userSevice from '../../../services/userService'
-import passwordCredentialService from '../../../services/passwordCredentialService'
+import userSevice from '../../../services/user'
+import passwordCredentialService from '../../../services/password'
 import ISignUp from '../../../interfaces/orthers/ISignUp'
 
 dotenv.config()
