@@ -32,6 +32,21 @@ const movieService = {
     for (let i = 0; i < filteredMovies.length; ++i) {
       await filteredMovies[i].save({ session })
     }
+  },
+  async findAndDeleteCast(castId: Types.ObjectId, session: ClientSession | null = null) {
+    const filteredMovies = (await Movie.find()).filter(movie => {
+      const index = movie.casts.findIndex(id => id.toString() == castId.toString())
+
+      if (index != -1) {
+        movie.casts.splice(index, 1)
+      }
+
+      return index != -1
+    })
+
+    for (let i = 0; i < filteredMovies.length; ++i) {
+      await filteredMovies[i].save({ session })
+    }
   }
 }
 

@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import path from 'path'
 
 import ICast from '../../interfaces/entities/ICast'
+import movieService from '../../services/movie'
 
 dotenv.config()
 
@@ -18,6 +19,15 @@ const castSchema = new Schema<ICast, Model<ICast>>({
     type: String,
     default: path.join(UPLOADS_CAST_PATH, CAST_AVATAR_DEFAULT),
     required: true
+  }
+})
+
+// Middlewares
+castSchema.pre('findOneAndDelete', { document: false, query: true }, async function(next) {
+  try {
+    await movieService.findAndDeleteCast(this.getFilter()._id, this.getOptions().session)
+  } catch (error: any) {
+    next(error)
   }
 })
 
