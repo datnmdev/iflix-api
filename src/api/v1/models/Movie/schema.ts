@@ -1,6 +1,13 @@
 import { Schema, Model } from 'mongoose'
+import dotenv from 'dotenv'
+import path from 'path'
 
 import IMovie from '../../interfaces/entities/IMovie'
+
+dotenv.config()
+
+const UPLOADS_POSTER_PATH = process.env.UPLOADS_POSTER_PATH as string
+const POSTER_DEFAULT = process.env.POSTER_DEFAULT as string
 
 const movieSchema = new Schema<IMovie, Model<IMovie>>({
   title: {
@@ -17,6 +24,7 @@ const movieSchema = new Schema<IMovie, Model<IMovie>>({
   },
   posterUrl: {
     type: String,
+    default: path.join(UPLOADS_POSTER_PATH, POSTER_DEFAULT),
     required: true
   },
   release: {

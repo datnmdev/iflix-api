@@ -1,4 +1,6 @@
 import { Schema, Model } from 'mongoose'
+import dotenv from 'dotenv'
+import path from 'path'
 
 import IUser from '../../interfaces/entities/IUser'
 import passwordCredentialService from '../../services/password'
@@ -6,6 +8,11 @@ import commentService from '../../services/comment'
 import historyService from '../../services/history'
 import followService from '../../services/follow'
 import rateService from '../../services/rate'
+
+dotenv.config()
+
+const UPLOADS_USER_PATH = process.env.UPLOADS_USER_PATH as string
+const USER_AVATAR_DEFAULT = process.env.USER_AVATAR_DEFAULT as string
 
 const userSchema = new Schema<IUser, Model<IUser>>({
   username: {
@@ -25,6 +32,11 @@ const userSchema = new Schema<IUser, Model<IUser>>({
       type: String,
       required: true
     }
+  },
+  avatar: {
+    type: String,
+    default: path.join(UPLOADS_USER_PATH, USER_AVATAR_DEFAULT),
+    required: true
   },
   provider: {
     type: String,

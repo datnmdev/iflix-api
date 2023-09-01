@@ -8,6 +8,7 @@ interface IUser {
     first: string,
     last: string
   },
+  avatar?: string,
   provider?: string,
   role: string
 }

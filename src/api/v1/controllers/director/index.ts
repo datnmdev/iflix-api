@@ -4,7 +4,7 @@ import create from './create'
 import updateById from './updateById'
 import deleteById from './deleteById'
 
-const genreController = {
+const directorController = {
   getAll,
   getById,
   create,
@@ -12,4 +12,4 @@ const genreController = {
   deleteById
 }
 
-export default genreController
+export default directorController

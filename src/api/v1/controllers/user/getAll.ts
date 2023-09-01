@@ -1,6 +1,9 @@
 import { Request, Response } from 'express'
+import dotenv from 'dotenv'
 
 import userSevice from '../../services/user'
+
+dotenv.config()
 
 const getAll = async (req: Request, res: Response) => {
   try {

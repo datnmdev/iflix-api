@@ -9,6 +9,7 @@ import authRouter from '../api/v1/routes/auth'
 import userRouter from '../api/v1/routes/user'
 import errorHandlerMiddleware from '../api/v1/middlewares/error'
 import genreRouter from '../api/v1/routes/genre'
+import directorRouter from '../api/v1/routes/director'
 
 export default function appConfig(app: Express) {
   // Common configs
@@ -26,6 +27,7 @@ export default function appConfig(app: Express) {
   app.use('/auth', authRouter)
   app.use('/users', userRouter)
   app.use('/genres', genreRouter)
+  app.use('/directors', directorRouter)
 
   // Middlewares configs
   app.use(errorHandlerMiddleware.commonErrorHandler)

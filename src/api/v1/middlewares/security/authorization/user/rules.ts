@@ -18,7 +18,7 @@ export default async function defineAbilityForUser(user: IRequestUser) {
     can('read', 'User', { id: user.id })
     cannot('read', 'Users')
     cannot('create', 'User')
-    can('update', 'User', ['name.first', 'name.last', 'email'], { id: user.id })
+    can('update', 'User', ['name.first', 'name.last', 'email', 'avatar'], { id: user.id })
     cannot('delete', 'User')
   }
 

@@ -1,7 +1,14 @@
 import { Request, Response } from 'express'
 import mongoose, { Types } from 'mongoose'
+import fs from 'fs'
+import path from 'path'
+import dotenv from 'dotenv'
 
 import userSevice from '../../services/user'
+
+dotenv.config()
+
+const USER_AVATAR_DEFAULT = process.env.USER_AVATAR_DEFAULT as string
 
 const deleteById = async (req: Request, res: Response) => {
   const session = await mongoose.startSession()
@@ -9,7 +16,14 @@ const deleteById = async (req: Request, res: Response) => {
   try {
     session.startTransaction()
 
-    await userSevice.findByIdAndDelete(new Types.ObjectId(req.params.id), session)
+    const deletedUser = await userSevice.findByIdAndDelete(new Types.ObjectId(req.params.id), session)
+
+    if (deletedUser && !deletedUser.avatar?.endsWith(USER_AVATAR_DEFAULT)) {
+      const avatarPath = path.join(process.cwd(), 'public', deletedUser.avatar as string)
+      if (fs.existsSync(avatarPath)) {
+        fs.unlinkSync(avatarPath)
+      }
+    }
 
     await session.commitTransaction()
     await session.endSession()

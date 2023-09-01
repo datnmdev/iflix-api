@@ -5,6 +5,7 @@ import securityMiddlware from '../middlewares/security'
 import userController from '../controllers/user'
 import { updateByIdSchema } from '../validations/user'
 import errorHandlerMiddleware from '../middlewares/error'
+import multer from '../../../config/multer'
 
 const userRouter = Router()
 const validator = createValidator({ passError: true })

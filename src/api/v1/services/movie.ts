@@ -17,6 +17,21 @@ const movieService = {
     for (let i = 0; i < filteredMovies.length; ++i) {
       await filteredMovies[i].save({ session })
     }
+  },
+  async findAndDeleteDirector(directorId: Types.ObjectId, session: ClientSession | null = null) {
+    const filteredMovies = (await Movie.find()).filter(movie => {
+      const index = movie.directors.findIndex(id => id.toString() == directorId.toString())
+
+      if (index != -1) {
+        movie.directors.splice(index, 1)
+      }
+
+      return index != -1
+    })
+
+    for (let i = 0; i < filteredMovies.length; ++i) {
+      await filteredMovies[i].save({ session })
+    }
   }
 }
 

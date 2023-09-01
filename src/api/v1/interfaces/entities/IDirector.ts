@@ -1,5 +1,6 @@
 interface IDirector {
-    name: string
+  name: string,
+  avatar?: string
 }
 
 export default IDirector

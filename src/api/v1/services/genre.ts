@@ -7,6 +7,9 @@ const genreService = {
   findAll() {
     return Genre.find()
   },
+  findById(id: Types.ObjectId) {
+    return Genre.findById(id)
+  },
   create(genre: IGenre) {
     const genreDoc = new Genre(genre)
     return genreDoc.save()
