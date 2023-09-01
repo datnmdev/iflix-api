@@ -29,12 +29,12 @@ const create = async (req: Request, res: Response) => {
   
       return res.status(201).json({
         status: 'Created',
-        message: 'Director created successfully'
+        message: 'Cast created successfully'
       })
     } catch (error) {
       return res.status(500).json({
         status: 'Internal Server Error',
-        message: 'The director hasn\'t been created successfully' 
+        message: 'The cast hasn\'t been created successfully' 
       })
     }
   })

@@ -27,7 +27,7 @@ const updateById = async (req: Request, res: Response) => {
   
       return res.status(200).json({
         status: 'OK',
-        message: 'The director has been updated'
+        message: 'The cast has been updated'
       })
     } catch (error) { 
       // Delete the successfully uploaded file (if any) previously
@@ -40,7 +40,7 @@ const updateById = async (req: Request, res: Response) => {
 
       return res.status(500).json({
         status: 'Internal Server Error',
-        message: 'The director wasn\'t updated successfully'
+        message: 'The cast wasn\'t updated successfully'
       })
     }
   })

@@ -11,6 +11,8 @@ import errorHandlerMiddleware from '../api/v1/middlewares/error'
 import genreRouter from '../api/v1/routes/genre'
 import directorRouter from '../api/v1/routes/director'
 import castRouter from '../api/v1/routes/cast'
+import countryRouter from '../api/v1/routes/country'
+import movieRouter from '../api/v1/routes/movie'
 
 export default function appConfig(app: Express) {
   // Common configs
@@ -30,6 +32,8 @@ export default function appConfig(app: Express) {
   app.use('/genres', genreRouter)
   app.use('/directors', directorRouter)
   app.use('/casts', castRouter)
+  app.use('/countries', countryRouter)
+  app.use('/movies', movieRouter)
 
   // Middlewares configs
   app.use(errorHandlerMiddleware.commonErrorHandler)

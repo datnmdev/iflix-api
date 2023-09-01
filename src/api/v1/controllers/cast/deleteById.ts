@@ -30,7 +30,7 @@ const deleteById = async (req: Request, res: Response) => {
 
     return res.status(200).json({
       status: 'OK',
-      message: 'The director has been deleted successfully'
+      message: 'The cast has been deleted successfully'
     })
   } catch (error) {
     await session.abortTransaction()
@@ -38,7 +38,7 @@ const deleteById = async (req: Request, res: Response) => {
 
     return res.status(500).json({
       status: 'Internal Server Error',
-      message: 'The director hasn\'t been deleted successfully',
+      message: 'The cast hasn\'t been deleted successfully',
       error
     })
   }

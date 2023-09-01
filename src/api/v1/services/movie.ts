@@ -3,6 +3,9 @@ import { ClientSession, Types } from 'mongoose'
 import Movie from '../models/Movie'
 
 const movieService = {
+  findAll() {
+    return Movie.find()
+  },
   async findAndDeleteGenre(genreId: Types.ObjectId, session: ClientSession | null = null) {
     const filteredMovies = (await Movie.find()).filter(movie => {
       const index = movie.genres.findIndex(id => id.toString() == genreId.toString())
@@ -46,6 +49,14 @@ const movieService = {
 
     for (let i = 0; i < filteredMovies.length; ++i) {
       await filteredMovies[i].save({ session })
+    }
+  },
+  async findAndDeleteCountry(countryId: Types.ObjectId, session: ClientSession | null = null) {
+    const filteredMovies = (await Movie.find()).filter(movie => movie?.country?.toString() === countryId.toString())
+    console.log(1)
+
+    for (let i = 0; i < filteredMovies.length; ++i) {
+      await filteredMovies[i].updateOne({ $unset: { country: 1 } }, { session })
     }
   }
 }
