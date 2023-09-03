@@ -1,5 +1,9 @@
-import updateByIdSchema from './updateById'
+import updateById from './updateById'
+import create from './create'
 
-export {
-  updateByIdSchema
+const directorValidator = {
+  create,
+  updateById
 }
+
+export default directorValidator

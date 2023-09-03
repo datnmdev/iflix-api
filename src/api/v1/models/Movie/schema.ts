@@ -3,6 +3,9 @@ import dotenv from 'dotenv'
 import path from 'path'
 
 import IMovie from '../../interfaces/entities/IMovie'
+import followService from '../../services/follow'
+import rateService from '../../services/rate'
+import episodeService from '../../services/episode'
 
 dotenv.config()
 
@@ -16,6 +19,7 @@ const movieSchema = new Schema<IMovie, Model<IMovie>>({
   },
   alias: {
     type: [String],
+    default: [],
     required: true
   },
   description: {
@@ -39,21 +43,50 @@ const movieSchema = new Schema<IMovie, Model<IMovie>>({
     type: Number,
     required: false
   },
+  followerCount: {
+    type: Number,
+    default: 0,
+    required: true
+  },
+  ratingSummary: {
+    starRatingCount: {
+      type: Number,
+      default: 0
+    },
+    reviewCount: {
+      type: Number,
+      default: 0
+    }
+  },
   genres: {
     type: [{type: Schema.Types.ObjectId, ref: 'genre'}],
+    default: [],
     required: true
   },
   directors: {
     type: [{type: Schema.Types.ObjectId, ref: 'director'}],
+    default: [],
     required: true
   },
   casts: {
     type: [{type: Schema.Types.ObjectId, ref: 'cast'}],
+    default: [],
     required: true
   },
   country: {
     type: Schema.Types.ObjectId,
     ref: 'country'
+  }
+})
+
+// Middlewares
+movieSchema.pre('findOneAndDelete', { document: false, query: true }, async function(next) {
+  try {
+    await followService.findByMovieIdAndDelete(this.getFilter()._id, this.getOptions().session)
+    await rateService.findByMovieIdAndDelete(this.getFilter()._id, this.getOptions().session)
+    await episodeService.findByMovieIdAndDelete(this.getFilter()._id, this.getOptions().session)
+  } catch (error: any) {
+    return next(error)
   }
 })
 

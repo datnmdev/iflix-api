@@ -1,14 +1,11 @@
 import { Router } from 'express'
-import { createValidator } from 'express-joi-validation'
 
 import securityMiddlware from '../middlewares/security'
 import userController from '../controllers/user'
-import { updateByIdSchema } from '../validations/user'
-import errorHandlerMiddleware from '../middlewares/error'
+import userValidator from '../validations/user'
 import multer from '../../../config/multer'
 
 const userRouter = Router()
-const validator = createValidator({ passError: true })
 
 userRouter.use(securityMiddlware.authentication.authenticateAccessToken)
 
@@ -16,7 +13,7 @@ userRouter.get('/', securityMiddlware.authorization.user.getAll, userController.
 
 userRouter.get('/:id', securityMiddlware.authorization.user.getById, userController.getById)
 
-userRouter.put('/:id', validator.body(updateByIdSchema), securityMiddlware.authorization.user.updateById, userController.updateById, errorHandlerMiddleware.validationErrorHandler)
+userRouter.put('/:id', multer.userAvatarUpload, userValidator.updateById, securityMiddlware.authorization.user.updateById, userController.updateById)
 
 userRouter.delete('/:id', securityMiddlware.authorization.user.deleteById, userController.deleteById)
 

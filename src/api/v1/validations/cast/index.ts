@@ -1,5 +1,10 @@
-import updateByIdSchema from './updateById'
+import updateById from './updateById'
+import create from './create'
 
-export {
-  updateByIdSchema
+const castValidator = {
+  create,
+  updateById
 }
+
+export default castValidator
+

@@ -1,5 +1,7 @@
-import updateByIdSchema from './updateById'
+import updateById from './updateById'
 
-export {
-  updateByIdSchema
+const countryValidator = {
+  updateById
 }
+
+export default countryValidator

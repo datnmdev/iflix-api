@@ -1,7 +1,9 @@
-import signUpSchema from './signUp'
-import signInSchema from './signIn'
+import signUp from './signUp'
+import signIn from './signIn'
 
-export {
-  signUpSchema,
-  signInSchema
+const authValidator = {
+  signIn,
+  signUp
 }
+
+export default authValidator

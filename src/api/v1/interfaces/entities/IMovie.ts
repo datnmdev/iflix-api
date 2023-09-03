@@ -1,19 +1,22 @@
 import {Types} from 'mongoose'
 
-import IRate from './IRate'
-
 interface IMovie {
     title: string,
-    alias: Types.Array<string>,
+    alias: Types.Array<string> | never[],
     description?: string,
-    posterUrl: string,
+    posterUrl?: string,
     release: number,
     duration: string,
-    episodeCount?: number
-    genres: Types.Array<Types.ObjectId>,
-    directors: Types.Array<Types.ObjectId>,
-    casts: Types.Array<Types.ObjectId>,
-    country: Types.ObjectId
+    episodeCount?: number,
+    followerCount?: number,
+    ratingSummary?: {
+      starRatingCount: number,
+      reviewCount: number
+    },
+    genres: Types.Array<Types.ObjectId> | never[],
+    directors: Types.Array<Types.ObjectId> | never[],
+    casts: Types.Array<Types.ObjectId> | never[],
+    country?: Types.ObjectId
 }
 
 export default IMovie

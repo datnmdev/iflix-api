@@ -1,10 +1,24 @@
 import { ClientSession, Types } from 'mongoose'
 
 import Movie from '../models/Movie'
+import IMovie from '../interfaces/entities/IMovie'
 
 const movieService = {
   findAll() {
     return Movie.find()
+  },
+  findById(id: Types.ObjectId) {
+    return Movie.findById(id)
+  },
+  create(movie: IMovie) {
+    const movieDoc = new Movie(movie)
+    return movieDoc.save()
+  },
+  findByIdAndUpdate(id: Types.ObjectId, infoWilBeApplied: IMovie) {
+    return Movie.findByIdAndUpdate(id, infoWilBeApplied)
+  },
+  findByIdAndDelete(id: Types.ObjectId, session: ClientSession | null = null) {
+    return Movie.findOneAndDelete({ _id: id }, { session })
   },
   async findAndDeleteGenre(genreId: Types.ObjectId, session: ClientSession | null = null) {
     const filteredMovies = (await Movie.find()).filter(movie => {

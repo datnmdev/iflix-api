@@ -2,13 +2,13 @@ import { NextFunction, Request, Response } from 'express'
 import Joi from 'joi'
 import fs from 'fs'
 
-const updateByIdSchema = Joi.object({
+const createSchema = Joi.object({
   name: Joi.string()
     .empty()
 })
 
-export default async function updateById(req: Request, res: Response, next: NextFunction) {
-  const { value, error } = updateByIdSchema.validate(req.body)
+export default async function create(req: Request, res: Response, next: NextFunction) {
+  const { value, error } = createSchema.validate(req.body)
 
   if (error) {
     if (req.file) {

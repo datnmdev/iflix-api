@@ -1,3 +1,4 @@
+import { NextFunction, Request, Response } from 'express'
 import joi from 'joi'
 
 const signInSchema = joi.object({
@@ -13,5 +14,14 @@ const signInSchema = joi.object({
     .min(8)
 })
 
-export default signInSchema
+export default function signIn(req: Request, res: Response, next: NextFunction) {
+  const { value, error } = signInSchema.validate(req.body)
+
+  if (error) {
+    return res.status(400).json(error)
+  }
+
+  req.body = value
+  return next()
+}
 

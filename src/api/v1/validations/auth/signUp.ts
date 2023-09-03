@@ -1,3 +1,4 @@
+import { NextFunction, Request, Response } from 'express'
 import joi from 'joi'
 
 const signUpSchema = joi.object({
@@ -29,5 +30,14 @@ const signUpSchema = joi.object({
     .valid(joi.ref('password'))
 })
 
-export default signUpSchema
+export default function signUp(req: Request, res: Response, next: NextFunction) {
+  const { value, error } = signUpSchema.validate(req.body)
+
+  if (error) {
+    return res.status(400).json(error)
+  }
+
+  req.body = value
+  return next()
+}
 

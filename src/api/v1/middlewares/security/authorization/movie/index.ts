@@ -1,15 +1,11 @@
-import getAll from './getAll'
-import getById from './getById'
 import create from './create'
 import updateById from './updateById'
 import deleteById from './deleteById'
 
-const movieController = {
-  getAll,
-  getById,
+const movie = {
   create,
   updateById,
   deleteById
 }
 
-export default movieController
+export default movie
