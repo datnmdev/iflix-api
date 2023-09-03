@@ -1,11 +1,13 @@
 import create from './create'
-import deleteByUserIdAndMovieId from './deleteByUserIdAndMovieId'
+import deleteByMovieIdAndUserId from './deleteByMovieIdAndUserId'
 import getByUserId from './getByUserId'
+import getByMovieIdAndUserId from './getByMovieIdAndUserId'
 
 const followController = {
   create,
-  deleteByUserIdAndMovieId,
-  getByUserId
+  deleteByMovieIdAndUserId,
+  getByUserId,
+  getByMovieIdAndUserId
 }
 
 export default followController

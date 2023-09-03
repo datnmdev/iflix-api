@@ -5,15 +5,15 @@ import followService from '../../services/follow'
 import IRequestUser from '../../interfaces/orthers/IRequestUser'
 import movieService from '../../services/movie'
 
-const deleteByUserIdAndMovieId = async (req: Request, res: Response) => {
+const deleteByMovieIdAndUserId = async (req: Request, res: Response) => {
   const session = await mongoose.startSession()
 
   try {
     session.startTransaction()
 
-    if (await followService.findByMovieIdAndUserId(new Types.ObjectId(req.params.id), (req.user as IRequestUser).id)) {
-      await followService.deleteOne({ movie: new Types.ObjectId(req.params.id), user: (req.user as IRequestUser).id }, session)
-      await movieService.findByIdAndUpdate(new Types.ObjectId(req.params.id), { $inc: { followerCount: -1 } }, session)
+    if (await followService.findByMovieIdAndUserId(new Types.ObjectId(req.query.movieId as string), (req.user as IRequestUser).id)) {
+      await followService.deleteOne({ movie: new Types.ObjectId(req.query.movieId as string), user: (req.user as IRequestUser).id }, session)
+      await movieService.findByIdAndUpdate(new Types.ObjectId(req.query.movieId as string), { $inc: { followerCount: -1 } }, session)
     }
 
     await session.commitTransaction()
@@ -34,4 +34,4 @@ const deleteByUserIdAndMovieId = async (req: Request, res: Response) => {
   }
 }
 
-export default deleteByUserIdAndMovieId
+export default deleteByMovieIdAndUserId

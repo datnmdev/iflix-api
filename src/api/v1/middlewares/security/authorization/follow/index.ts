@@ -1,11 +1,13 @@
 import create from './create'
 import getByUserId from './getByUserId'
-import deleteByUserIdAndMovieId from './deleteByUserIdAndMovieId'
+import deleteByMovieIdAndUserId from './deleteByMovieIdAndUserId'
+import getByMovieIdAndUserId from './getByMovieIdAndUserId'
 
 const follow = {
   create,
   getByUserId,
-  deleteByUserIdAndMovieId
+  deleteByMovieIdAndUserId,
+  getByMovieIdAndUserId
 }
 
 export default follow

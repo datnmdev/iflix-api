@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express'
-
+ 
 import IRequestUser from '../../../../interfaces/orthers/IRequestUser'
 import defineAbilityAboutFollowFor from './rules'
 
-const deleteByUserIdAndMovieId = (req: Request, res: Response, next: NextFunction) => {
-  if (defineAbilityAboutFollowFor(req.user as IRequestUser).can('delete', 'Follow')) {
+const getByMovieIdAndUserId = (req: Request, res: Response, next: NextFunction) => {
+  if (defineAbilityAboutFollowFor(req.user as IRequestUser).can('read', 'Follow')) {
     return next()
   }
 
@@ -14,4 +14,4 @@ const deleteByUserIdAndMovieId = (req: Request, res: Response, next: NextFunctio
   })
 }
 
-export default deleteByUserIdAndMovieId
+export default getByMovieIdAndUserId
