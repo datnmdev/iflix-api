@@ -4,6 +4,7 @@ import director from './director'
 import cast from './cast'
 import country from './country'
 import movie from './movie'
+import follow from './follow'
 
 const authorization = {
   user,
@@ -11,7 +12,8 @@ const authorization = {
   director,
   cast,
   country,
-  movie
+  movie,
+  follow
 }
 
 export default authorization

@@ -1,4 +1,4 @@
-import { ClientSession, Types } from 'mongoose'
+import { ClientSession, Types, UpdateQuery } from 'mongoose'
 
 import Movie from '../models/Movie'
 import IMovie from '../interfaces/entities/IMovie'
@@ -14,8 +14,8 @@ const movieService = {
     const movieDoc = new Movie(movie)
     return movieDoc.save()
   },
-  findByIdAndUpdate(id: Types.ObjectId, infoWilBeApplied: IMovie) {
-    return Movie.findByIdAndUpdate(id, infoWilBeApplied)
+  findByIdAndUpdate(id: Types.ObjectId, infoWilBeApplied: UpdateQuery<IMovie> | undefined, session: ClientSession | null = null) {
+    return Movie.findByIdAndUpdate(id, infoWilBeApplied, { session })
   },
   findByIdAndDelete(id: Types.ObjectId, session: ClientSession | null = null) {
     return Movie.findOneAndDelete({ _id: id }, { session })

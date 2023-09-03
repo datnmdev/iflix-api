@@ -13,6 +13,7 @@ import directorRouter from '../api/v1/routes/director'
 import castRouter from '../api/v1/routes/cast'
 import countryRouter from '../api/v1/routes/country'
 import movieRouter from '../api/v1/routes/movie'
+import followRouter from '../api/v1/routes/follow'
 
 export default function appConfig(app: Express) {
   // Common configs
@@ -34,6 +35,7 @@ export default function appConfig(app: Express) {
   app.use('/casts', castRouter)
   app.use('/countries', countryRouter)
   app.use('/movies', movieRouter)
+  app.use('/follows', followRouter)
 
   // Middlewares configs
   app.use(errorHandlerMiddleware.commonErrorHandler)
