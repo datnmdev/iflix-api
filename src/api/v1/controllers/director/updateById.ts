@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express'
+import { Request, Response } from 'express'
 import { Types } from 'mongoose'
 import dotenv from 'dotenv'
 import path from 'path'
@@ -11,14 +11,14 @@ dotenv.config()
 
 const UPLOADS_DIRECTOR_PATH = process.env.UPLOADS_DIRECTOR_PATH as string
 
-const updateById = async (req: Request, res: Response, next: NextFunction) => {
+const updateById = async (req: Request, res: Response) => {
   try {
+    await directorService.findByIdAndUpdate(new Types.ObjectId(req.params.id), req.body as IDirector)
+
     if (req.file) {
       req.body.avatar = path.join(UPLOADS_DIRECTOR_PATH, req.params.id + '.' + req.file.mimetype.split('/')[1])
       await fs.promises.rename(req.file.path, path.join('public', req.body.avatar))
     }
-
-    await directorService.findByIdAndUpdate(new Types.ObjectId(req.params.id), req.body as IDirector)
 
     return res.status(200).json({
       status: 'OK',
@@ -32,7 +32,7 @@ const updateById = async (req: Request, res: Response, next: NextFunction) => {
         await fs.promises.access(avatarPath, fs.constants.F_OK)
         await fs.promises.unlink(avatarPath)
       } catch (error) {
-        next(error)
+        // console.log(error)
       }
     } else if (req.file) {
       const avatarPath = path.join(process.cwd(), req.file.path)
@@ -40,7 +40,7 @@ const updateById = async (req: Request, res: Response, next: NextFunction) => {
         await fs.promises.access(avatarPath, fs.constants.F_OK)
         await fs.promises.unlink(avatarPath)
       } catch (error) {
-        next(error)
+        // console.log(error)
       }
     }
 

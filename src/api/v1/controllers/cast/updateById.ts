@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express'
+import { Request, Response } from 'express'
 import { Types } from 'mongoose'
 import dotenv from 'dotenv'
 import path from 'path'
@@ -11,7 +11,7 @@ dotenv.config()
 
 const UPLOADS_CAST_PATH = process.env.UPLOADS_CAST_PATH as string
 
-const updateById = async (req: Request, res: Response, next: NextFunction) => {
+const updateById = async (req: Request, res: Response) => {
   try {
     if (req.file) {
       req.body.avatar = path.join(UPLOADS_CAST_PATH, req.params.id + '.' + req.file.mimetype.split('/')[1])
@@ -32,7 +32,7 @@ const updateById = async (req: Request, res: Response, next: NextFunction) => {
         await fs.promises.access(avatarPath, fs.constants.F_OK)
         await fs.promises.unlink(avatarPath)
       } catch (error) {
-        next(error)
+        // console.log(error)
       }
     } else if (req.file) {
       const avatarPath = path.join(process.cwd(), req.file.path)
@@ -40,7 +40,7 @@ const updateById = async (req: Request, res: Response, next: NextFunction) => {
         await fs.promises.access(avatarPath, fs.constants.F_OK)
         await fs.promises.unlink(avatarPath)
       } catch (error) {
-        next(error)
+        // console.log(error)
       }
     }
 

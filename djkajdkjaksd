@@ -1,0 +1,59 @@
+[33mcommit 639a1dfe57b78150fa98bfe2324fa8e5ea735d77[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Mr. Dat <minhdat450500@gmail.com>
+Date:   Sun Sep 3 22:23:07 2023 +0700
+
+    Completed the rating features
+
+[33mcommit 176460de84fd176f9f2a285069252fa5f220a0b7[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Mr. Dat <minhdat450500@gmail.com>
+Date:   Sun Sep 3 17:22:41 2023 +0700
+
+    Completed the follow features
+
+[33mcommit 88063b3c1fc3ede2e1a35ae7340eff92a3525b74[m
+Author: Mr. Dat <minhdat450500@gmail.com>
+Date:   Sun Sep 3 12:53:45 2023 +0700
+
+    Completed the movie features
+
+[33mcommit 973a3e9e3b81247bb7d99c536d9838e7f389b618[m
+Author: Mr. Dat <minhdat450500@gmail.com>
+Date:   Fri Sep 1 20:19:06 2023 +0700
+
+    Completed the country features
+
+[33mcommit ee4e10e7699663cce78a6e6bb136938a0b5789a3[m
+Author: Mr. Dat <minhdat450500@gmail.com>
+Date:   Fri Sep 1 14:11:44 2023 +0700
+
+    Completed the cast features
+
+[33mcommit fd7b012a69ed7a39ef3345128ff7ff73c13b2e74[m
+Author: Mr. Dat <minhdat450500@gmail.com>
+Date:   Fri Sep 1 13:34:15 2023 +0700
+
+    Revise some parts of the user feature and complete the director feature
+
+[33mcommit 46f19184b2e0cabd96c157091b50270186d138c5[m
+Author: Mr. Dat <minhdat450500@gmail.com>
+Date:   Wed Aug 30 21:28:29 2023 +0700
+
+    Completed the genre features
+
+[33mcommit f0851b918079d2ca4b6b7da0d2bdc27828531502[m
+Author: Mr. Dat <minhdat450500@gmail.com>
+Date:   Tue Aug 29 21:45:10 2023 +0700
+
+    Completed the user features
+
+[33mcommit 1b57c55c3f1d997b4f8667f54d70aa06366443f6[m
+Author: Mr. Dat <minhdat450500@gmail.com>
+Date:   Mon Aug 28 16:31:06 2023 +0700
+
+    Completed the login part
+
+[33mcommit e8f354a42a3e703831f8dc81753a0856f45fd5e5[m
+Author: Mr. Dat <minhdat450500@gmail.com>
+Date:   Mon Jul 31 19:53:27 2023 +0700
+
+    create project

@@ -20,8 +20,11 @@ const deleteById = async (req: Request, res: Response) => {
 
     if (deletedCast && !deletedCast.avatar?.endsWith(CAST_AVATAR_DEFAULT)) {
       const avatarPath = path.join(process.cwd(), 'public', deletedCast.avatar as string)
-      if (fs.existsSync(avatarPath)) {
-        fs.unlinkSync(avatarPath)
+      try {
+        await fs.promises.access(avatarPath, fs.constants.F_OK)
+        await fs.promises.unlink(avatarPath)
+      } catch (error) {
+        // console.log(error)
       }
     }
 

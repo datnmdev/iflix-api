@@ -6,6 +6,7 @@ import country from './country'
 import movie from './movie'
 import follow from './follow'
 import rate from './rate'
+import episode from './episode'
 
 const authorization = {
   user,
@@ -15,7 +16,8 @@ const authorization = {
   country,
   movie,
   follow,
-  rate
+  rate,
+  episode
 }
 
 export default authorization

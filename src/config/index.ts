@@ -15,6 +15,7 @@ import countryRouter from '../api/v1/routes/country'
 import movieRouter from '../api/v1/routes/movie'
 import followRouter from '../api/v1/routes/follow'
 import rateRouter from '../api/v1/routes/rate'
+import episodeRouter from '../api/v1/routes/episode'
 
 export default function appConfig(app: Express) {
   // Common configs
@@ -38,6 +39,7 @@ export default function appConfig(app: Express) {
   app.use('/movies', movieRouter)
   app.use('/follows', followRouter)
   app.use('/rates', rateRouter)
+  app.use('/episodes', episodeRouter)
 
   // Middlewares configs
   app.use(errorHandlerMiddleware.commonErrorHandler)

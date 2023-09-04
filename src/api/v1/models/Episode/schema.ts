@@ -13,6 +13,10 @@ const episodeSchema = new Schema<IEpisode, Model<IEpisode>>({
     type: String,
     required: true
   },
+  videoUrl: {
+    type: String,
+    required: false
+  },
   commentCount: {
     type: Number,
     default: 0,
@@ -25,6 +29,15 @@ const episodeSchema = new Schema<IEpisode, Model<IEpisode>>({
 })
 
 // Middlewates
+episodeSchema.pre('findOneAndDelete', { document: false, query: true }, async function(next) {
+  try {
+    await historyService.findByEpisodeIdAndDelete(this.getFilter()._id, this.getOptions().session)
+    await commentService.findByEpisodeIdAndDelete(this.getFilter()._id, this.getOptions().session)
+  } catch (error: any) {
+    return next(error)
+  }
+})
+
 episodeSchema.pre('deleteMany', { document: false, query: true }, async function (next) {
   try {
     await historyService.findByEpisodeIdAndDelete(this.getFilter()._id, this.getOptions().session)

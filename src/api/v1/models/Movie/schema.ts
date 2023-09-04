@@ -41,7 +41,8 @@ const movieSchema = new Schema<IMovie, Model<IMovie>>({
   },
   episodeCount: {
     type: Number,
-    required: false
+    default: 0,
+    required: true
   },
   followerCount: {
     type: Number,

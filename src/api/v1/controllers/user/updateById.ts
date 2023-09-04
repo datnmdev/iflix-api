@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express'
+import {Request, Response } from 'express'
 import lodash from 'lodash'
 import { permittedFieldsOf } from '@casl/ability/extra'
 import { Types } from 'mongoose'
@@ -17,7 +17,7 @@ dotenv.config()
 
 const UPLOADS_USER_PATH = process.env.UPLOADS_USER_PATH as string
 
-const updateById = async (req: Request, res: Response, next: NextFunction) => {
+const updateById = async (req: Request, res: Response) => {
   try {
     const user: IRequestUser = req.user as IRequestUser
     const userData: IRequestUserBodyUpdate = req.body as IRequestUserBodyUpdate
@@ -55,7 +55,7 @@ const updateById = async (req: Request, res: Response, next: NextFunction) => {
         await fs.promises.access(avatarPath, fs.constants.F_OK)
         await fs.promises.unlink(avatarPath)
       } catch (error) {
-        next(error)
+      //  console.log(error)
       }
     } else if (req.file) {
       const avatarPath = path.join(process.cwd(), req.file.path)
@@ -63,7 +63,7 @@ const updateById = async (req: Request, res: Response, next: NextFunction) => {
         await fs.promises.access(avatarPath, fs.constants.F_OK)
         await fs.promises.unlink(avatarPath)
       } catch (error) {
-        next(error)
+      //  console.log(error)
       }
     }
 

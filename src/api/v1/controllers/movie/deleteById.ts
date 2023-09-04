@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express'
+import { Request, Response } from 'express'
 import mongoose, { Types } from 'mongoose'
 import path from 'path'
 import fs from 'fs'
@@ -10,7 +10,7 @@ dotenv.config()
 
 const POSTER_DEFAULT = process.env.POSTER_DEFAULT as string
 
-const deleteById = async (req: Request, res: Response, next: NextFunction) => {
+const deleteById = async (req: Request, res: Response) => {
   const session = await mongoose.startSession()
 
   try {
@@ -24,9 +24,7 @@ const deleteById = async (req: Request, res: Response, next: NextFunction) => {
         await fs.promises.access(posterPath, fs.constants.F_OK)
         await fs.promises.unlink(posterPath)
       } catch (error) {
-        await session.abortTransaction()
-        await session.endSession()
-        return next(error)
+        // console.log(error)
       }
     }
 
