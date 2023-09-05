@@ -7,6 +7,7 @@ import movie from './movie'
 import follow from './follow'
 import rate from './rate'
 import episode from './episode'
+import history from './history'
 
 const authorization = {
   user,
@@ -17,7 +18,8 @@ const authorization = {
   movie,
   follow,
   rate,
-  episode
+  episode,
+  history
 }
 
 export default authorization

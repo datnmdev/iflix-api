@@ -42,7 +42,7 @@ const commentSchema = new Schema<IComment, Model<IComment>>({
     type: [
       {
         type: Schema.Types.ObjectId, 
-        ref: 'user'
+        ref: 'comment'
       }
     ],
     default: []
