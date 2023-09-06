@@ -3,6 +3,11 @@ import {Schema, Model} from 'mongoose'
 import IComment from '../../interfaces/entities/IComment'
 
 const commentSchema = new Schema<IComment, Model<IComment>>({
+  pin: {
+    type: Boolean,
+    default: false,
+    require: true
+  },
   text: {
     type: String,
     required: true
@@ -47,6 +52,8 @@ const commentSchema = new Schema<IComment, Model<IComment>>({
     ],
     default: []
   }
+}, {
+  timestamps: true
 })
 
 export default commentSchema

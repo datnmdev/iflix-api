@@ -20,7 +20,7 @@ const episodeService = {
   findByIdAndDelete(id: Types.ObjectId, session: ClientSession | null = null) {
     return Episode.findOneAndDelete({ _id: id }, { session })
   },
-  findByIdAndUpdate(id: Types.ObjectId, infoWillBeApplied: any, session: ClientSession | null = null) {
+  findByIdAndUpdate(id: Types.ObjectId, infoWillBeApplied: UpdateQuery<IEpisode> | undefined, session: ClientSession | null = null) {
     return Episode.findByIdAndUpdate(id, infoWillBeApplied, { session })
   },
   findByMovieIdAndDelete(movieId: Types.ObjectId, session: ClientSession | null = null) {

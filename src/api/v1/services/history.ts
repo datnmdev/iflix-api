@@ -2,7 +2,7 @@ import { ClientSession, Types } from 'mongoose'
 
 import History from '../models/History'
 import IHistory from '../interfaces/entities/IHistory'
-import dateTimeUtils from '../utils/datetime'
+import dateTimeUtils from '../utils/dateTime'
 
 const historyService = {
   findByUserIdAndDate(date: Date) {

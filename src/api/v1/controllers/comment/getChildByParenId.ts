@@ -3,13 +3,13 @@ import { Types } from 'mongoose'
 
 import commentService from '../../services/comment'
 
-const getByMovieId = async (req: Request, res: Response, next: NextFunction) => {
-  if (!req.query.movieId || !req.query.page) {
+const getChildByParentId = async (req: Request, res: Response, next: NextFunction) => {
+  if (!req.query.parentId || !req.query.page) {
     return next()
   }
 
   try {
-    const comments = await commentService.findByMovieId(new Types.ObjectId(String(req.query.movieId)), Number(req.query.page))
+    const comments = await commentService.findChildByParentId(new Types.ObjectId(String(req.query.parentId)), Number(req.query.page))
 
     return res.status(200).json(comments)
   } catch (error) {
@@ -19,4 +19,4 @@ const getByMovieId = async (req: Request, res: Response, next: NextFunction) => 
   }
 }
 
-export default getByMovieId
+export default getChildByParentId

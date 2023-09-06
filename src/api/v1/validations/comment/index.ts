@@ -3,11 +3,11 @@ import updateById from './updateById'
 import deleteById from './deleteById'
 import getByMovieId from './getByMovieId'
 import getByEpisodeId from './getByEpisodeId'
-import getChildByParentId from './getChildByParenId'
+import getChildByParentId from './getChildByParentId'
 import like from './like'
 import dislike from './dislike'
 
-const commentController = {
+const commentValidator = {
   create,
   updateById,
   deleteById,
@@ -18,4 +18,4 @@ const commentController = {
   dislike
 }
 
-export default commentController
+export default commentValidator
