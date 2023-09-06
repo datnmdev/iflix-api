@@ -18,8 +18,7 @@ const create = async (req: Request, res: Response) => {
       user: (req.user as IRequestUser).id
     }
 
-    if (!(await rateService.findByMovieIdAndUserId(rate.movie, (req.user as IRequestUser).id))
-    && (await movieService.findById(rate.movie))) {
+    if (!(await rateService.findByMovieIdAndUserId(rate.movie, (req.user as IRequestUser).id))) {
       await rateService.create(rate, session)
       await movieService.findByIdAndUpdate(rate.movie, { $inc: { 'ratingSummary.starRatingCount': rate.stars, 'ratingSummary.reviewCount': 1 } }, session)
     }

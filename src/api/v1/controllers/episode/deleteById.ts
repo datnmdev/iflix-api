@@ -13,13 +13,11 @@ const deleteById = async (req: Request, res: Response) => {
     session.startTransaction()
 
     const deletedEpisode = await episodeService.findByIdAndDelete(new Types.ObjectId(req.params.id), session)
-    if (deletedEpisode) {
-      await movieService.findByIdAndUpdate(deletedEpisode.movie, { $inc: { episodeCount: -1 } }, session)
+    await movieService.findByIdAndUpdate(deletedEpisode!.movie, { $inc: { episodeCount: -1 } }, session)
 
-      const videoUrl = path.join(process.cwd(), 'public', deletedEpisode.videoUrl as string)
-      await fs.promises.access(videoUrl, fs.constants.F_OK)
-      await fs.promises.unlink(videoUrl)
-    }
+    const videoUrl = path.join(process.cwd(), 'public', deletedEpisode!.videoUrl as string)
+    await fs.promises.access(videoUrl, fs.constants.F_OK)
+    await fs.promises.unlink(videoUrl)
 
     await session.commitTransaction()
     await session.endSession()

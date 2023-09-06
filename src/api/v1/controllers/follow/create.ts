@@ -17,8 +17,7 @@ const create = async (req: Request, res: Response) => {
       user: (req.user as IRequestUser).id
     }
 
-    if (!(await followService.findByMovieIdAndUserId(follow.movie, (req.user as IRequestUser).id))
-    && (await movieService.findById(follow.movie))) {
+    if (!(await followService.findByMovieIdAndUserId(follow.movie, (req.user as IRequestUser).id))) {
       await followService.create(follow, session)
       await movieService.findByIdAndUpdate(follow.movie, { $inc: { followerCount: 1 } }, session)
     }

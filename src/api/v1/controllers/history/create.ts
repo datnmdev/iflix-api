@@ -3,7 +3,6 @@ import { Types } from 'mongoose'
 
 import IHistory from '../../interfaces/entities/IHistory'
 import historyService from '../../services/history'
-import episodeService from '../../services/episode'
 import IRequestUser from '../../interfaces/orthers/IRequestUser'
 
 const create = async (req: Request, res: Response) => {
@@ -13,9 +12,7 @@ const create = async (req: Request, res: Response) => {
       user: (req.user as IRequestUser).id
     }
 
-    if (await episodeService.findById(historyData.episode)) {
-      await historyService.create(historyData)
-    }
+    await historyService.create(historyData)
 
     return res.status(200).json({
       status: 'OK'

@@ -1,10 +1,9 @@
 import { Router } from 'express'
 
-import authentication from '../middlewares/security/authentication'
-import authorization from '../middlewares/security/authorization'
 import castController from '../controllers/cast'
 import castValidator from '../validations/cast'
 import multer from '../../../config/multer'
+import securityMiddlware from '../middlewares/security'
 
 const castRouter = Router()
 
@@ -12,10 +11,10 @@ castRouter.get('/', castController.getAll)
 
 castRouter.get('/:id', castController.getById)
 
-castRouter.post('/', multer.castAvatarUpload, castValidator.create, authentication.authenticateAccessToken, authorization.cast.create, castController.create)
+castRouter.post('/', multer.castAvatarUpload, castValidator.create, securityMiddlware.authentication.authenticateAccessToken, securityMiddlware.authorization.cast.create, castController.create)
 
-castRouter.put('/:id', multer.castAvatarUpload, castValidator.updateById, authentication.authenticateAccessToken, authorization.cast.updateById, castController.updateById)
+castRouter.put('/:id', multer.castAvatarUpload, castValidator.updateById, securityMiddlware.authentication.authenticateAccessToken, securityMiddlware.authorization.cast.updateById, castController.updateById)
 
-castRouter.delete('/:id', castValidator.deleteById, authentication.authenticateAccessToken, authorization.cast.deleteById, castController.deleteById)
+castRouter.delete('/:id', castValidator.deleteById, securityMiddlware.authentication.authenticateAccessToken, securityMiddlware.authorization.cast.deleteById, castController.deleteById)
 
 export default castRouter

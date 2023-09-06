@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import dotenv from 'dotenv'
 import path from 'path'
 import fs from 'fs'
@@ -13,7 +13,7 @@ dotenv.config()
 
 const UPLOADS_VIDEO_PATH = process.env.UPLOADS_VIDEO_PATH as string
 
-const create = async (req: Request, res: Response) => {
+const create = async (req: Request, res: Response, next: NextFunction) => {
   const session = await mongoose.startSession()
 
   try {
@@ -24,24 +24,22 @@ const create = async (req: Request, res: Response) => {
       name: req.body.name,
       movie: new Types.ObjectId(req.body.movie)
     }
-    if (await movieService.findById(episodeData.movie)) {
-      if (req.file) {
-        const savedEpisode = await episodeService.create(episodeData, session)
-        
-        await movieService.findByIdAndUpdate(savedEpisode.movie, { $inc: { episodeCount: 1 } }, session)
-  
-        const videoDirectoryPath = path.join(process.cwd(), 'public', UPLOADS_VIDEO_PATH, savedEpisode.movie.toString())
-        try {
-          await fs.promises.access(videoDirectoryPath, fs.constants.F_OK)
-        } catch (error) {
-          await fs.promises.mkdir(videoDirectoryPath, { recursive: true })
-        }
+    if (req.file) {
+      const savedEpisode = await episodeService.create(episodeData, session)
 
-        savedEpisode.videoUrl = path.join(UPLOADS_VIDEO_PATH, savedEpisode.movie.toString(), savedEpisode._id.toString() + '.' + req.file.mimetype.split('/')[1])
-        await savedEpisode.save({ session })
-        req.body.videoUrl = savedEpisode.videoUrl
-        await fs.promises.rename(req.file.path, path.join('public', savedEpisode.videoUrl))
+      await movieService.findByIdAndUpdate(savedEpisode.movie, { $inc: { episodeCount: 1 } }, session)
+
+      const videoDirectoryPath = path.join(process.cwd(), 'public', UPLOADS_VIDEO_PATH, savedEpisode.movie.toString())
+      try {
+        await fs.promises.access(videoDirectoryPath, fs.constants.F_OK)
+      } catch (error) {
+        await fs.promises.mkdir(videoDirectoryPath, { recursive: true })
       }
+
+      savedEpisode.videoUrl = path.join(UPLOADS_VIDEO_PATH, savedEpisode.movie.toString(), savedEpisode._id.toString() + '.' + req.file.mimetype.split('/')[1])
+      await savedEpisode.save({ session })
+      req.body.videoUrl = savedEpisode.videoUrl
+      await fs.promises.rename(req.file.path, path.join('public', savedEpisode.videoUrl))
     }
 
     await session.commitTransaction()
@@ -62,7 +60,7 @@ const create = async (req: Request, res: Response) => {
         await fs.promises.access(videoUrl, fs.constants.F_OK)
         await fs.promises.unlink(videoUrl)
       } catch (error) {
-        // console.log(error)
+        return next(error)
       }
     } else if (req.file) {
       const videoUrl = path.join(process.cwd(), req.file.path)
@@ -70,7 +68,7 @@ const create = async (req: Request, res: Response) => {
         await fs.promises.access(videoUrl, fs.constants.F_OK)
         await fs.promises.unlink(videoUrl)
       } catch (error) {
-        // console.log(error)
+        return next(error)
       }
     }
 

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import lodash from 'lodash'
 import { Types } from 'mongoose'
 import fs from 'fs'
@@ -11,29 +11,17 @@ dotenv.config()
 
 const UPLOADS_VIDEO_PATH = process.env.UPLOADS_VIDEO_PATH as string
 
-const updateById = async (req: Request, res: Response) => {
+const updateById = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const infoWillBeApplied = lodash.pick(req.body, [ 'name', 'ordinalNumber' ])
+    const infoWillBeApplied = lodash.pick(req.body, ['name', 'ordinalNumber'])
 
     const updatedEpisode = await episodeService.findByIdAndUpdate(new Types.ObjectId(req.params.id), infoWillBeApplied)
-    
-    if (updatedEpisode) {
-      if (req.file) {
-        updatedEpisode.videoUrl = path.join(UPLOADS_VIDEO_PATH, updatedEpisode.movie.toString(), updatedEpisode._id.toString() + '.' + req.file.mimetype.split('/')[1])
-        await updatedEpisode.save()
-        req.body.videoUrl = updatedEpisode.videoUrl
-        await fs.promises.rename(req.file.path, path.join('public', updatedEpisode.videoUrl))
-      }
-    } else {
-      if (req.file) {
-        const videoUrl = path.join(process.cwd(), req.file.path)
-        try {
-          await fs.promises.access(videoUrl, fs.constants.F_OK)
-          await fs.promises.unlink(videoUrl)
-        } catch (error) {
-          // console.log(error)
-        }
-      }
+
+    if (req.file) {
+      updatedEpisode!.videoUrl = path.join(UPLOADS_VIDEO_PATH, updatedEpisode!.movie.toString(), updatedEpisode!._id.toString() + '.' + req.file.mimetype.split('/')[1])
+      await updatedEpisode!.save()
+      req.body.videoUrl = updatedEpisode!.videoUrl
+      await fs.promises.rename(req.file.path, path.join('public', updatedEpisode!.videoUrl))
     }
 
     return res.status(200).json({
@@ -48,7 +36,7 @@ const updateById = async (req: Request, res: Response) => {
         await fs.promises.access(videoUrl, fs.constants.F_OK)
         await fs.promises.unlink(videoUrl)
       } catch (error) {
-        // console.log(error)
+        return next(error)
       }
     } else if (req.file) {
       const videoUrl = path.join(process.cwd(), req.file.path)
@@ -56,7 +44,7 @@ const updateById = async (req: Request, res: Response) => {
         await fs.promises.access(videoUrl, fs.constants.F_OK)
         await fs.promises.unlink(videoUrl)
       } catch (error) {
-        // console.log(error)
+        return next(error)
       }
     }
 

@@ -18,19 +18,15 @@ const deleteById = async (req: Request, res: Response) => {
 
     const deletedUser = await userSevice.findByIdAndDelete(new Types.ObjectId(req.params.id), session)
 
-    if (deletedUser && !deletedUser.avatar?.endsWith(USER_AVATAR_DEFAULT)) {
-      const avatarPath = path.join(process.cwd(), 'public', deletedUser.avatar as string)
-      try {
-        await fs.promises.access(avatarPath, fs.constants.F_OK)
-        await fs.promises.unlink(avatarPath)
-      } catch (error) {
-        // console.log(error)
-      }
+    if (!deletedUser!.avatar!.endsWith(USER_AVATAR_DEFAULT)) {
+      const avatarPath = path.join(process.cwd(), 'public', deletedUser!.avatar as string)
+      await fs.promises.access(avatarPath, fs.constants.F_OK)
+      await fs.promises.unlink(avatarPath)
     }
 
     await session.commitTransaction()
     await session.endSession()
-    
+
     return res.status(200).json({
       status: 'OK',
       message: 'The user information has been deleted'

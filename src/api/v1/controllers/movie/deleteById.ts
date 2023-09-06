@@ -18,14 +18,10 @@ const deleteById = async (req: Request, res: Response) => {
 
     const deletedMovie = await movieService.findByIdAndDelete(new Types.ObjectId(req.params.id), session)
 
-    if (deletedMovie && !deletedMovie.posterUrl?.endsWith(POSTER_DEFAULT)) {
-      const posterPath = path.join(process.cwd(), 'public', deletedMovie.posterUrl as string)
-      try {
-        await fs.promises.access(posterPath, fs.constants.F_OK)
-        await fs.promises.unlink(posterPath)
-      } catch (error) {
-        // console.log(error)
-      }
+    if (!deletedMovie!.posterUrl!.endsWith(POSTER_DEFAULT)) {
+      const posterPath = path.join(process.cwd(), 'public', deletedMovie!.posterUrl as string)
+      await fs.promises.access(posterPath, fs.constants.F_OK)
+      await fs.promises.unlink(posterPath)
     }
 
     await session.commitTransaction()
@@ -38,7 +34,7 @@ const deleteById = async (req: Request, res: Response) => {
   } catch (error) {
     await session.abortTransaction()
     await session.endSession()
-    
+
     return res.status(500).json({
       status: 'Internal Server Error',
       message: 'The movie hasn\'t been deleted successfully'

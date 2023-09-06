@@ -11,7 +11,7 @@ dotenv.config()
 
 const UPLOADS_POSTER_PATH = process.env.UPLOADS_POSTER_PATH as string
 
-const updateById = async (req: Request, res: Response) => {
+const updateById = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const movieData = req.body
 
@@ -47,7 +47,7 @@ const updateById = async (req: Request, res: Response) => {
         await fs.promises.access(avatarPath, fs.constants.F_OK)
         await fs.promises.unlink(avatarPath)
       } catch (error) {
-        // console.log(error)
+        return next(error)
       }
     } else if (req.file) {
       const avatarPath = path.join(process.cwd(), req.file.path)
@@ -55,7 +55,7 @@ const updateById = async (req: Request, res: Response) => {
         await fs.promises.access(avatarPath, fs.constants.F_OK)
         await fs.promises.unlink(avatarPath)
       } catch (error) {
-        // console.log(error)
+        return next(error)
       }
     }
 

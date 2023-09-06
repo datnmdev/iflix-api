@@ -1,16 +1,15 @@
 import { Router } from 'express'
 
-import authentication from '../middlewares/security/authentication'
 import rateValidator from '../validations/rate'
-import authorization from '../middlewares/security/authorization'
 import rateController from '../controllers/rate'
+import securityMiddlware from '../middlewares/security'
 
 const rateRouter = Router()
 
-rateRouter.get('/', rateValidator.getByMovieIdAndUserId, authentication.authenticateAccessToken, authorization.rate.getByMovieIdAndUserId, rateController.getByMovieIdAndUserId)
+rateRouter.get('/', rateValidator.getByMovieIdAndUserId, securityMiddlware.authentication.authenticateAccessToken, securityMiddlware.authorization.rate.getByMovieIdAndUserId, rateController.getByMovieIdAndUserId)
 
-rateRouter.post('/', rateValidator.create, authentication.authenticateAccessToken, authorization.rate.create, rateController.create)
+rateRouter.post('/', rateValidator.create, securityMiddlware.authentication.authenticateAccessToken, securityMiddlware.authorization.rate.create, rateController.create)
 
-rateRouter.put('/', rateValidator.updateByMovieIdAndUserId, authentication.authenticateAccessToken, authorization.rate.updateByMovieIdAndUserId, rateController.updateByMovieIdAndUserId)
+rateRouter.put('/', rateValidator.updateByMovieIdAndUserId, securityMiddlware.authentication.authenticateAccessToken, securityMiddlware.authorization.rate.updateByMovieIdAndUserId, rateController.updateByMovieIdAndUserId)
 
 export default rateRouter

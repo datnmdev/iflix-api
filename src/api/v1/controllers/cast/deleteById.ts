@@ -18,14 +18,10 @@ const deleteById = async (req: Request, res: Response) => {
 
     const deletedCast = await castService.findByIdAndDelete(new Types.ObjectId(req.params.id), session)
 
-    if (deletedCast && !deletedCast.avatar?.endsWith(CAST_AVATAR_DEFAULT)) {
-      const avatarPath = path.join(process.cwd(), 'public', deletedCast.avatar as string)
-      try {
-        await fs.promises.access(avatarPath, fs.constants.F_OK)
-        await fs.promises.unlink(avatarPath)
-      } catch (error) {
-        // console.log(error)
-      }
+    if (!deletedCast!.avatar!.endsWith(CAST_AVATAR_DEFAULT)) {
+      const avatarPath = path.join(process.cwd(), 'public', deletedCast!.avatar as string)
+      await fs.promises.access(avatarPath, fs.constants.F_OK)
+      await fs.promises.unlink(avatarPath)
     }
 
     await session.commitTransaction()

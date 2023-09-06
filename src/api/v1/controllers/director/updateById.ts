@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { Types } from 'mongoose'
 import dotenv from 'dotenv'
 import path from 'path'
@@ -11,7 +11,7 @@ dotenv.config()
 
 const UPLOADS_DIRECTOR_PATH = process.env.UPLOADS_DIRECTOR_PATH as string
 
-const updateById = async (req: Request, res: Response) => {
+const updateById = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await directorService.findByIdAndUpdate(new Types.ObjectId(req.params.id), req.body as IDirector)
 
@@ -32,7 +32,7 @@ const updateById = async (req: Request, res: Response) => {
         await fs.promises.access(avatarPath, fs.constants.F_OK)
         await fs.promises.unlink(avatarPath)
       } catch (error) {
-        // console.log(error)
+        return next(error)
       }
     } else if (req.file) {
       const avatarPath = path.join(process.cwd(), req.file.path)
@@ -40,7 +40,7 @@ const updateById = async (req: Request, res: Response) => {
         await fs.promises.access(avatarPath, fs.constants.F_OK)
         await fs.promises.unlink(avatarPath)
       } catch (error) {
-        // console.log(error)
+        return next(error)
       }
     }
 

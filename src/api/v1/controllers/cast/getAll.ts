@@ -4,7 +4,7 @@ import castService from '../../services/cast'
 
 const getAll = async (req: Request, res: Response) => {
   try {
-    const casts = (await castService.findAll())
+    const casts = await castService.findAll()
 
     return res.status(200).json(casts)
   } catch (error) {

@@ -18,14 +18,10 @@ const deleteById = async (req: Request, res: Response) => {
 
     const deletedDirector = await directorService.findByIdAndDelete(new Types.ObjectId(req.params.id), session)
 
-    if (deletedDirector && !deletedDirector.avatar?.endsWith(DIRECTOR_AVATAR_DEFAULT)) {
-      const avatarPath = path.join(process.cwd(), 'public', deletedDirector.avatar as string)
-      try {
-        await fs.promises.access(avatarPath, fs.constants.F_OK)
-        await fs.promises.unlink(avatarPath)
-      } catch (error) {
-        // console.log(error)
-      }
+    if (!deletedDirector!.avatar!.endsWith(DIRECTOR_AVATAR_DEFAULT)) {
+      const avatarPath = path.join(process.cwd(), 'public', deletedDirector!.avatar as string)
+      await fs.promises.access(avatarPath, fs.constants.F_OK)
+      await fs.promises.unlink(avatarPath)
     }
 
     await session.commitTransaction()
