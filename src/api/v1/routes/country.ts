@@ -15,6 +15,6 @@ countryRouter.post('/', authentication.authenticateAccessToken, authorization.co
 
 countryRouter.put('/:id', countryValidator.updateById, authentication.authenticateAccessToken, authorization.country.updateById, countryController.updateById)
 
-countryRouter.delete('/:id', authentication.authenticateAccessToken, authorization.country.deleteById, countryController.deleteById)
+countryRouter.delete('/:id', countryValidator.deleteById, authentication.authenticateAccessToken, authorization.country.deleteById, countryController.deleteById)
 
 export default countryRouter

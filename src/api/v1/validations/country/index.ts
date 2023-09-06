@@ -1,7 +1,9 @@
 import updateById from './updateById'
+import deleteById from './deleteById'
 
 const countryValidator = {
-  updateById
+  updateById,
+  deleteById
 }
 
 export default countryValidator
