@@ -7,14 +7,12 @@ import multer from '../../../config/multer'
 
 const userRouter = Router()
 
-userRouter.use(securityMiddlware.authentication.authenticateAccessToken)
+userRouter.get('/', securityMiddlware.authentication.authenticateAccessToken, securityMiddlware.authorization.user.getAll, userController.getAll)
 
-userRouter.get('/', securityMiddlware.authorization.user.getAll, userController.getAll)
+userRouter.get('/:id', userValidator.getById, securityMiddlware.authentication.authenticateAccessToken, securityMiddlware.authorization.user.getById, userController.getById)
 
-userRouter.get('/:id', securityMiddlware.authorization.user.getById, userController.getById)
+userRouter.put('/:id', multer.userAvatarUpload, userValidator.updateById, securityMiddlware.authentication.authenticateAccessToken, securityMiddlware.authorization.user.updateById, userController.updateById)
 
-userRouter.put('/:id', multer.userAvatarUpload, userValidator.updateById, securityMiddlware.authorization.user.updateById, userController.updateById)
-
-userRouter.delete('/:id', securityMiddlware.authorization.user.deleteById, userController.deleteById)
+userRouter.delete('/:id', userValidator.deleteById, securityMiddlware.authentication.authenticateAccessToken, securityMiddlware.authorization.user.deleteById, userController.deleteById)
 
 export default userRouter

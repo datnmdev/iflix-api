@@ -1,8 +1,17 @@
 import { NextFunction, Request, Response } from 'express'
 import Joi from 'joi'
 import fs from 'fs'
+import userSevice from '../../services/user'
+import { Types } from 'mongoose'
 
-const updateByIdSchema = Joi.object({
+const paramsSchema = Joi.object({
+  id: Joi.string()
+    .hex()
+    .length(24)
+    .required()
+})
+
+const bodySchema = Joi.object({
   name: Joi.object({
     first: Joi.string()
       .empty(),
@@ -18,10 +27,10 @@ const updateByIdSchema = Joi.object({
 })
 
 export default async function updateById(req: Request, res: Response, next: NextFunction) {
-  console.log(req.body)
-  const { value, error } = updateByIdSchema.validate(req.body)
+  const paramsValidator = paramsSchema.validate(req.params)
+  const bodyValidator = bodySchema.validate(req.body)
 
-  if (error) {
+  if (paramsValidator.error || bodyValidator.error) {
     if (req.file) {
       try {
         await fs.promises.unlink(req.file.path)
@@ -29,9 +38,17 @@ export default async function updateById(req: Request, res: Response, next: Next
         next(error)
       }
     }
-    return res.status(400).json(error)
+    return res.status(400).json(paramsValidator.error ? paramsValidator.error : bodyValidator.error)
   }
 
-  req.body = value
+  const user = await userSevice.findById(new Types.ObjectId(req.params.id))
+  if (!user) {
+    return res.status(400).json({
+      message: 'Invalid id parameter'
+    })
+  }
+
+  req.params = paramsValidator.value
+  req.body = bodyValidator.value
   return next()
 }

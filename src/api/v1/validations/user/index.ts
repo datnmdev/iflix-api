@@ -1,7 +1,11 @@
+import getById from './getById'
 import updateById from './updateById'
+import deleteById from './deleteById'
 
 const userValidator = {
-  updateById
+  getById,
+  updateById,
+  deleteById
 }
 
 export default userValidator
