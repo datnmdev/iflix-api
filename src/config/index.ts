@@ -1,6 +1,8 @@
-import express, { Express } from 'express'
+import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
+import helmet from 'helmet'
+import { rateLimit } from 'express-rate-limit'
 
 import redisConfig from './redis'
 import passportConfig from './passport'
@@ -18,33 +20,51 @@ import rateRouter from '../api/v1/routes/rate'
 import episodeRouter from '../api/v1/routes/episode'
 import historyRouter from '../api/v1/routes/history'
 import commentRouter from '../api/v1/routes/comment'
+import credentials from './ssl'
 
-export default function appConfig(app: Express) {
-  // Common configs
-  app.use(bodyParser.urlencoded({ extended: true }))
-  app.use(bodyParser.json())
-  app.use(cors())
-  app.use(express.static('public'))
+const app = express()
 
-  // Authentication and authorization configs
-  databaseConfig()
-  redisConfig()
-  passportConfig(app)
+// Common configs
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(express.static('public'))
+app.use(cors())
+app.use(helmet())
+app.use(rateLimit({
+  windowMs: 60*1000,
+  max: 100,
+  handler: (req, res) => {
+    return res.status(429).json({
+      message: 'Too many request'
+    })
+  }
+}))
 
-  // Router configs
-  app.use('/auth', authRouter)
-  app.use('/users', userRouter)
-  app.use('/genres', genreRouter)
-  app.use('/directors', directorRouter)
-  app.use('/casts', castRouter)
-  app.use('/countries', countryRouter)
-  app.use('/movies', movieRouter)
-  app.use('/follows', followRouter)
-  app.use('/rates', rateRouter)
-  app.use('/episodes', episodeRouter)
-  app.use('/histories', historyRouter)
-  app.use('/comments', commentRouter)
+// Authentication and authorization configs
+databaseConfig()
+redisConfig()
+passportConfig(app)
 
-  // Middlewares configs
-  app.use(errorHandlerMiddleware.commonErrorHandler)
+// Router configs
+app.use('/auth', authRouter)
+app.use('/users', userRouter)
+app.use('/genres', genreRouter)
+app.use('/directors', directorRouter)
+app.use('/casts', castRouter)
+app.use('/countries', countryRouter)
+app.use('/movies', movieRouter)
+app.use('/follows', followRouter)
+app.use('/rates', rateRouter)
+app.use('/episodes', episodeRouter)
+app.use('/histories', historyRouter)
+app.use('/comments', commentRouter)
+
+// Middlewares configs
+app.use(errorHandlerMiddleware.commonErrorHandler)
+
+// Exports
+export {
+  credentials
 }
+
+export default app

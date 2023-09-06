@@ -1,12 +1,9 @@
-import express from 'express'
+import https from 'https'
 
-import appConfig from './config'
+import app, { credentials } from './config'
 
-const app = express()
+const httpsServer = https.createServer(credentials, app)
 
-// Apply all the app configurations
-appConfig(app)
-
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on http://localhost:${process.env.PORT}`)
+httpsServer.listen(process.env.PORT, () => {
+  console.log(`Server is running on https://localhost:${process.env.PORT}`)
 })
