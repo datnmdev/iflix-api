@@ -9,12 +9,12 @@ const genreRouter = Router()
 
 genreRouter.get('/', genreController.getAll)
 
-genreRouter.get('/:id', genreController.getById)
+genreRouter.get('/:id', genreValidator.getById, genreController.getById)
 
-genreRouter.post('/', authentication.authenticateAccessToken, authorization.genre.create, genreController.create)
+genreRouter.post('/', genreValidator.create, authentication.authenticateAccessToken, authorization.genre.create, genreController.create)
 
 genreRouter.put('/:id', genreValidator.updateById, authentication.authenticateAccessToken, authorization.genre.updateById, genreController.updateById)
 
-genreRouter.delete('/:id', authentication.authenticateAccessToken, authorization.genre.deleteById, genreController.deleteById)
+genreRouter.delete('/:id', genreValidator.deleteById, authentication.authenticateAccessToken, authorization.genre.deleteById, genreController.deleteById)
 
 export default genreRouter
