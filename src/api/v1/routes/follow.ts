@@ -11,6 +11,6 @@ followRouter.get('/', followValidator.getByMovieIdAndUserId, authentication.auth
 
 followRouter.post('/', followValidator.create, authentication.authenticateAccessToken, authorization.follow.create, followController.create)
 
-followRouter.delete('/', authentication.authenticateAccessToken, authorization.follow.deleteByMovieIdAndUserId, followController.deleteByMovieIdAndUserId)
+followRouter.delete('/', followValidator.deleteByMovieIdAndUserId, authentication.authenticateAccessToken, authorization.follow.deleteByMovieIdAndUserId, followController.deleteByMovieIdAndUserId)
 
 export default followRouter
