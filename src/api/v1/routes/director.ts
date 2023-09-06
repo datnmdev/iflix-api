@@ -16,6 +16,6 @@ directorRouter.post('/', multer.directorAvatarUpload, directorValidator.create, 
 
 directorRouter.put('/:id', multer.directorAvatarUpload, directorValidator.updateById, authentication.authenticateAccessToken, authorization.director.updateById, directorController.updateById)
 
-directorRouter.delete('/:id', authentication.authenticateAccessToken, authorization.director.deleteById, directorController.deleteById)
+directorRouter.delete('/:id', directorValidator.deleteById, authentication.authenticateAccessToken, authorization.director.deleteById, directorController.deleteById)
 
 export default directorRouter

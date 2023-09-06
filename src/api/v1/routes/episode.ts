@@ -16,6 +16,6 @@ episodeRouter.post('/', multer.episodeUpload, episodeValidator.create, authentic
 
 episodeRouter.put('/:id', multer.episodeUpload, episodeValidator.updateById, authentication.authenticateAccessToken, authorization.episode.updateById, episodeController.updateById)
 
-episodeRouter.delete('/:id',episodeValidator.deleteById, authentication.authenticateAccessToken, authorization.episode.deleteById, episodeController.deleteById)
+episodeRouter.delete('/:id', episodeValidator.deleteById, authentication.authenticateAccessToken, authorization.episode.deleteById, episodeController.deleteById)
 
 export default episodeRouter

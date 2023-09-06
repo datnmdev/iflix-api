@@ -2,14 +2,14 @@ import { NextFunction, Request, Response } from 'express'
 import Joi from 'joi'
 import fs from 'fs'
 
-const createSchema = Joi.object({
+const bodySchema = Joi.object({
   name: Joi.string()
     .empty()
     .required()
 })
 
 export default async function create(req: Request, res: Response, next: NextFunction) {
-  const { value, error } = createSchema.validate(req.body)
+  const { value, error } = bodySchema.validate(req.body)
 
   if (error) {
     if (req.file) {
