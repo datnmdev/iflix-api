@@ -5,6 +5,7 @@ import fs from 'fs'
 const createSchema = Joi.object({
   name: Joi.string()
     .empty()
+    .required()
 })
 
 export default async function create(req: Request, res: Response, next: NextFunction) {

@@ -11,16 +11,10 @@ const paramsSchema = Joi.object({
     .required()
 })
 
-const bodySchema = Joi.object({
-  name: Joi.string()
-    .empty()
-})
-
-export default async function updateById(req: Request, res: Response, next: NextFunction) {
+export default async function deleteById(req: Request, res: Response, next: NextFunction) {
   const paramsValidator = paramsSchema.validate(req.params)
-  const bodyValidator = bodySchema.validate(req.body)
 
-  if (paramsValidator.error || bodyValidator.error) {
+  if (paramsValidator.error) {
     if (req.file) {
       try {
         await fs.promises.unlink(req.file.path)
@@ -28,7 +22,7 @@ export default async function updateById(req: Request, res: Response, next: Next
         next(error)
       }
     }
-    return res.status(400).json(paramsValidator.error ? paramsValidator.error : bodyValidator.error)
+    return res.status(400).json(paramsValidator.error)
   }
 
   const cast = await castService.findById(new Types.ObjectId(req.params.id))
@@ -39,6 +33,5 @@ export default async function updateById(req: Request, res: Response, next: Next
   }
 
   req.params = paramsValidator.value
-  req.body = bodyValidator.value
   return next()
 }

@@ -16,6 +16,6 @@ castRouter.post('/', multer.castAvatarUpload, castValidator.create, authenticati
 
 castRouter.put('/:id', multer.castAvatarUpload, castValidator.updateById, authentication.authenticateAccessToken, authorization.cast.updateById, castController.updateById)
 
-castRouter.delete('/:id', authentication.authenticateAccessToken, authorization.cast.deleteById, castController.deleteById)
+castRouter.delete('/:id', castValidator.deleteById, authentication.authenticateAccessToken, authorization.cast.deleteById, castController.deleteById)
 
 export default castRouter
