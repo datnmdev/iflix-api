@@ -7,6 +7,7 @@ const createSchema = Joi.object({
     .empty()
     .required(),
   alias: Joi.array()
+    .min(0)
     .items(Joi.string().empty()),
   description: Joi.string(),
   release: Joi.number()
@@ -18,15 +19,17 @@ const createSchema = Joi.object({
   episodeCount: Joi.number()
     .integer(),
   genres: Joi.array()
-    .items(Joi.string().hex().min(24).max(24)),
+    .min(0)
+    .items(Joi.string().hex().length(24)),
   directors: Joi.array()
-    .items(Joi.string().hex().min(24).max(24)),
+    .min(0)
+    .items(Joi.string().hex().length(24)),
   casts: Joi.array()
-    .items(Joi.string().hex().min(24).max(24)),
+    .min(0)
+    .items(Joi.string().hex().length(24)),
   country: Joi.string()
     .hex()
-    .min(24)
-    .max(24)
+    .length(24)
 })
 
 export default async function create(req: Request, res: Response, next: NextFunction) {
