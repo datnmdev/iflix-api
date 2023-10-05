@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import helmet from 'helmet'
 import { rateLimit } from 'express-rate-limit'
+import dotenv from 'dotenv'
 
 import redisConfig from './redis'
 import passportConfig from './passport'
@@ -21,14 +22,19 @@ import episodeRouter from '../api/v1/routes/episode'
 import historyRouter from '../api/v1/routes/history'
 import commentRouter from '../api/v1/routes/comment'
 import credentials from './ssl'
+import recommendationRouter from '../api/v1/routes/recommendation'
 
 const app = express()
+
+dotenv.config()
 
 // Common configs
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(express.static('public'))
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:5173'
+}))
 app.use(helmet())
 app.use(rateLimit({
   windowMs: 60*1000,
@@ -58,6 +64,7 @@ app.use('/rates', rateRouter)
 app.use('/episodes', episodeRouter)
 app.use('/histories', historyRouter)
 app.use('/comments', commentRouter)
+app.use('/recommendation', recommendationRouter)
 
 // Middlewares configs
 app.use(errorHandlerMiddleware.commonErrorHandler)

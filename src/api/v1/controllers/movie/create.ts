@@ -20,6 +20,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
       alias: movieData?.alias ? movieData.alias : [],
       duration: String(movieData.duration),
       description: movieData?.description,
+      episode: movieData.episode,
       release: Number(movieData.release),
       genres: movieData?.genres ? movieData.genres.map((genre: string) => new Types.ObjectId(genre)) : [],
       casts: movieData?.casts ? movieData.casts.map((cast: string) => new Types.ObjectId(cast)) : [],

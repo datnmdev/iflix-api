@@ -27,7 +27,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
     if (req.file) {
       const savedEpisode = await episodeService.create(episodeData, session)
 
-      await movieService.findByIdAndUpdate(savedEpisode.movie, { $inc: { episodeCount: 1 } }, session)
+      await movieService.findByIdAndUpdate(savedEpisode.movie, { $inc: { 'episode.numberOfEpisodesReleased': 1 } }, session)
 
       const videoDirectoryPath = path.join(process.cwd(), 'public', UPLOADS_VIDEO_PATH, savedEpisode.movie.toString())
       try {

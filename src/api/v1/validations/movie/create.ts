@@ -16,8 +16,6 @@ const createSchema = Joi.object({
   duration: Joi.string()
     .empty()
     .required(),
-  episodeCount: Joi.number()
-    .integer(),
   genres: Joi.array()
     .min(0)
     .items(Joi.string().hex().length(24)),

@@ -39,10 +39,19 @@ const movieSchema = new Schema<IMovie, Model<IMovie>>({
     type: String,
     required: true
   },
-  episodeCount: {
+  views: {
     type: Number,
-    default: 0,
-    required: true
+    default: 0
+  },
+  episode: {
+    total: {
+      type: Number,
+      default: 0
+    },
+    numberOfEpisodesReleased: {
+      type: Number,
+      default: 0
+    }
   },
   followerCount: {
     type: Number,

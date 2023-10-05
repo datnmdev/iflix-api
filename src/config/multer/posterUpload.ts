@@ -19,7 +19,7 @@ export default function posterUpload(req: Request, res: Response, next: NextFunc
       files: 1,
       fileSize: POSTER_MAX_SIZE
     }
-  }).single('avatar')(req, res, err => {
+  }).single('poster')(req, res, err => {
     if (err) {
       return res.status(500).json(err)
     }

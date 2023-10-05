@@ -7,7 +7,11 @@ interface IMovie {
     posterUrl?: string,
     release: number,
     duration: string,
-    episodeCount?: number,
+    views?: number,
+    episode?: {
+      total: number,
+      numberOfEpisodesReleased: number
+    },
     followerCount?: number,
     ratingSummary?: {
       starRatingCount: number,

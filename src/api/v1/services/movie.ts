@@ -5,7 +5,7 @@ import IMovie from '../interfaces/entities/IMovie'
 
 const movieService = {
   findAll() {
-    return Movie.find()
+    return Movie.find().populate([ 'genres', 'directors', 'casts', 'country' ])
   },
   findById(id: Types.ObjectId) {
     return Movie.findById(id)

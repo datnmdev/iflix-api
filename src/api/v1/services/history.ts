@@ -39,9 +39,9 @@ const historyService = {
       }
     ])
   },
-  create(history: IHistory) {
+  create(history: IHistory, session: ClientSession | null = null) {
     const historyDoc = new History(history)
-    return historyDoc.save()
+    return historyDoc.save({ session })
   },
   findByUserIdAndDelete(userId: Types.ObjectId, session: ClientSession | null = null) {
     return History.deleteMany({ user: userId }, { session })
