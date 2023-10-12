@@ -7,7 +7,7 @@ import securityMiddlware from '../middlewares/security'
 
 const episodeRouter = Router()
 
-episodeRouter.get('/', episodeController.getAll)
+episodeRouter.get('/', episodeController.getByMovieId, episodeController.getAll)
 
 episodeRouter.get('/:id', episodeValidator.getById, episodeController.getById)
 

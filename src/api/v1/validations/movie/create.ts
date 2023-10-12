@@ -10,6 +10,12 @@ const createSchema = Joi.object({
     .min(0)
     .items(Joi.string().empty()),
   description: Joi.string(),
+  episode: Joi.object({
+    total: Joi.number()
+      .min(0),
+    numberOfEpisodesReleased: Joi.number()
+      .min(0)
+  }),
   release: Joi.number()
     .integer()
     .required(),

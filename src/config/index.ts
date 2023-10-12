@@ -23,6 +23,7 @@ import historyRouter from '../api/v1/routes/history'
 import commentRouter from '../api/v1/routes/comment'
 import credentials from './ssl'
 import recommendationRouter from '../api/v1/routes/recommendation'
+import scheduleRouter from '../api/v1/routes/schedule'
 
 const app = express()
 
@@ -65,6 +66,7 @@ app.use('/episodes', episodeRouter)
 app.use('/histories', historyRouter)
 app.use('/comments', commentRouter)
 app.use('/recommendation', recommendationRouter)
+app.use('/schedules', scheduleRouter)
 
 // Middlewares configs
 app.use(errorHandlerMiddleware.commonErrorHandler)

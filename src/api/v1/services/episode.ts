@@ -4,6 +4,9 @@ import Episode from '../models/Episode'
 import IEpisode from '../interfaces/entities/IEpisode'
 
 const episodeService = {
+  findAll() {
+    return Episode.find()
+  },
   findByMovieId(movieId: Types.ObjectId) {
     return Episode.find({ movie: movieId })
   },

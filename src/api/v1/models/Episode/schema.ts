@@ -26,6 +26,8 @@ const episodeSchema = new Schema<IEpisode, Model<IEpisode>>({
     type: Schema.Types.ObjectId,
     ref: 'movie'
   }
+}, {
+  timestamps: true
 })
 
 // Middlewates

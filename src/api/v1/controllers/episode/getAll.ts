@@ -1,15 +1,10 @@
-import { NextFunction, Request, Response } from 'express'
-import { Types } from 'mongoose'
+import { Request, Response } from 'express'
 
 import episodeService from '../../services/episode'
 
-const getAll = async (req: Request, res: Response, next: NextFunction) => {
-  if (!req.query.movieId) {
-    return next()
-  }
-
+const getAll = async (req: Request, res: Response) => {
   try {
-    const episodes = await episodeService.findByMovieId(new Types.ObjectId(req.query.movieId as string))
+    const episodes = await episodeService.findAll()
   
     return res.status(200).json(episodes)
   } catch (error) {
