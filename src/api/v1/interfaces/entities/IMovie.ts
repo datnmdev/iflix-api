@@ -6,7 +6,10 @@ interface IMovie {
     description?: string,
     posterUrl?: string,
     release: number,
-    duration: string,
+    duration: {
+      value: number,
+      meaning: string
+    },
     views?: number,
     episode?: {
       total: number,

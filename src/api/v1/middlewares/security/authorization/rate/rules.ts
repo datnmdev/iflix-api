@@ -9,6 +9,8 @@ export default function defineAbilityAboutRateFor(user: IRequestUser) {
     can('read', 'Rate')
     can('create', 'Rate')
     can('update', 'Rate')
+  } else if (user.role === 'admin') {
+    can('manage', 'all')
   }
 
   return build()

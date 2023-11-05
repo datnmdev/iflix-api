@@ -6,7 +6,7 @@ import securityMiddlware from '../middlewares/security'
 
 const rateRouter = Router()
 
-rateRouter.get('/', rateValidator.getByMovieIdAndUserId, securityMiddlware.authentication.authenticateAccessToken, securityMiddlware.authorization.rate.getByMovieIdAndUserId, rateController.getByMovieIdAndUserId)
+rateRouter.get('/', rateValidator.getByMovieIdAndUserId, securityMiddlware.authentication.authenticateAccessToken, securityMiddlware.authorization.rate.getByMovieIdAndUserId, rateController.getByMovieIdAndUserId, rateController.getAll)
 
 rateRouter.post('/', rateValidator.create, securityMiddlware.authentication.authenticateAccessToken, securityMiddlware.authorization.rate.create, rateController.create)
 

@@ -8,10 +8,18 @@ const querySchema = Joi.object({
   movieId: Joi.string()
     .hex()
     .length(24)
+    .required(),
+  userId: Joi.string()
+    .hex()
+    .length(24)
     .required()
 })
 
 export default async function getByMovieIdAndUserId(req: Request, res: Response, next: NextFunction) {
+  if (!req.query.movieId || !req.query.userId) {
+    return next()
+  }
+
   const { value, error } = querySchema.validate(req.query)
 
   if (error) {

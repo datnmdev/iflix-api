@@ -13,9 +13,12 @@ const updateByIdSchema = Joi.object({
   release: Joi.number()
     .integer()
     .required(),
-  duration: Joi.string()
-    .empty()
-    .required(),
+  duration: Joi.object({
+    value: Joi.number()
+      .required(),
+    meaning: Joi.string()
+      .required()
+  }),
   episode: Joi.object({
     total: Joi.number()
       .min(0),

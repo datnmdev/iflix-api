@@ -1,9 +1,7 @@
-import similar from './similar'
-import collaborativeFilter from './collaborativeFilter'
+import collaborationFiltering from './collaborationFiltering'
 
 const recommendationController = {
-  similar,
-  collaborativeFilter
+  collaborationFiltering
 }
 
 export default recommendationController

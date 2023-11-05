@@ -12,4 +12,6 @@ authRouter.post('/form/signup', authValidator.signUp, authController.form.signUp
 
 authRouter.post('/refreshToken', securityMiddlware.authentication.authenticateRefreshToken, authController.form.renewToken)
 
+authRouter.post('/logout', securityMiddlware.authentication.authenticateRefreshToken, authController.form.logout)
+
 export default authRouter

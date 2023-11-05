@@ -19,9 +19,12 @@ const createSchema = Joi.object({
   release: Joi.number()
     .integer()
     .required(),
-  duration: Joi.string()
-    .empty()
-    .required(),
+  duration: Joi.object({
+    value: Joi.number()
+      .required(),
+    meaning: Joi.string()
+      .required()
+  }),
   genres: Joi.array()
     .min(0)
     .items(Joi.string().hex().length(24)),

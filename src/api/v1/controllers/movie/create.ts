@@ -18,7 +18,10 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
     const convertedMovie: IMovie = {
       title: String(movieData.title),
       alias: movieData?.alias ? movieData.alias : [],
-      duration: String(movieData.duration),
+      duration: {
+        value: movieData.value,
+        meaning: movieData.meaning
+      },
       description: movieData?.description,
       episode: movieData.episode,
       release: Number(movieData.release),

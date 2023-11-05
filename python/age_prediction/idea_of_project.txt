@@ -1,0 +1,6 @@
+* Các đặc trưng của một bộ phim
+- Đánh giá của người dùng: phù hợp ở độ tuổi nào
+- Ngôn ngữ thô tục, tục tĩu: gồm 11 mức từ 0 - 10
+- Có các yếu tố bạo lực: gồm 11 mức từ 0 - 10
+- Có sử dụng hiệu ứng hoặc nhiều cảnh quay gây kích thích mạnh: gồm 11 mức 0 - 10
+- Thể loại phù hơp: các thể loại được gán nhãn

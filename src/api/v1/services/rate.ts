@@ -4,6 +4,9 @@ import Rate from '../models/Rate'
 import IRate from '../interfaces/entities/IRate'
 
 const rateService = {
+  findAll() {
+    return Rate.find()
+  },
   create(rate: IRate, session: ClientSession | null = null) {
     const rateDoc = new Rate(rate)
     return rateDoc.save({ session })
